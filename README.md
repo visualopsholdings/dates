@@ -11,3 +11,18 @@ cmake ..
 make -j4
 make test
 ```
+
+In your CMakeLists.txt you can use like this
+
+```
+FetchContent_Declare(
+  dates
+  GIT_REPOSITORY https://github.com/visualopsholdings/dates.git
+  GIT_TAG main
+)
+FetchContent_MakeAvailable(dates)
+
+include_directories(build/_deps/dates-src/include)
+```
+
+Then use "DatesLib" in your target libraries.
