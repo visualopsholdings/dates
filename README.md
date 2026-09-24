@@ -22,7 +22,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(dates)
 
-include_directories(build/_deps/dates-src/include)
+include_directories(${dates_SOURCE_DIR}/include)
 ```
 
 Then use "DatesLib" in your target libraries.
