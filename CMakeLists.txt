@@ -30,10 +30,15 @@ endif ()
 
 include_directories(include)
 
+add_library(DatesLib STATIC
+  src/date.cpp 
+  src/stringutils.cpp 
+  src/log.cpp)
+
 # Tests
 
-add_executable(TestDate test/testdate.cpp src/date.cpp src/stringutils.cpp src/log.cpp)
-  target_link_libraries(TestDate ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${Boost_LOG_LIBRARY})
+add_executable(TestDate test/testdate.cpp)
+  target_link_libraries(TestDate DatesLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${Boost_LOG_LIBRARY})
 
 add_test(TestDate TestDate)
 
