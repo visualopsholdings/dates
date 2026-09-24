@@ -16,7 +16,7 @@ cmake_policy(SET CMP0169 OLD) # FetchContent
 set(USE_MONGO ON)
 
 project (dates)
-  find_package(Boost 1.90.0 COMPONENTS unit_test_framework chrono log_setup log REQUIRED)
+  find_package(Boost 1.90.0 COMPONENTS unit_test_framework chrono thread log_setup log REQUIRED)
   add_definitions(-DBOOST_ALL_DYN_LINK) 
   enable_testing()
   
@@ -30,20 +30,25 @@ endif ()
 
 include_directories(include)
 
+set(BOOSTLIBS 
+  ${Boost_LOG_LIBRARY}
+  ${Boost_THREAD_LIBRARY})
+
 add_library(DatesLib STATIC
   src/date.cpp 
   src/stringutils.cpp 
   src/log.cpp)
+target_link_libraries(DatesLib ${BOOSTLIBS})
 
 # Tests
 
 add_executable(TestDate test/testdate.cpp)
-  target_link_libraries(TestDate DatesLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${Boost_LOG_LIBRARY})
+  target_link_libraries(TestDate DatesLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(TestDate TestDate)
 
 add_executable(TestStringUtils test/teststringutils.cpp src/stringutils.cpp)
-  target_link_libraries(TestStringUtils ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${Boost_LOG_LIBRARY})
+  target_link_libraries(TestStringUtils ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 
 add_test(TestStringUtils TestStringUtils)
 
