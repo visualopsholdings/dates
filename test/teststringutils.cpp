@@ -28,3 +28,15 @@ BOOST_AUTO_TEST_CASE( split )
   BOOST_CHECK_EQUAL(StringUtils::stringBefore(StringUtils::stringAfter(s2, ':'), '-'), "xxx");
   
 }
+
+BOOST_AUTO_TEST_CASE( splitVector )
+{
+  cout << "=== splitVector ===" << endl;
+  
+  vector<string> v;
+  StringUtils::splitString("aaaa aaa:xxx- bbb", ' ', &v);
+  
+  BOOST_CHECK_EQUAL(v.size(), 3);
+  BOOST_CHECK_EQUAL(v[2], "bbb");
+  
+}

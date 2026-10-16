@@ -15,6 +15,7 @@
 #define H_stringutils
 
 #include <string>
+#include <vector>
 
 namespace vops {
 
@@ -23,6 +24,7 @@ class StringUtils {
 public:
   
   static void splitString(const std::string &s, char token, std::string *s1, std::string *s2);
+  static void splitString(const std::string &s, char token, std::vector<std::string> *parts);
   static std::string stringBefore(const std::string &s, char token);
   static std::string stringAfter(const std::string &s, char token);
   static std::string trim(const std::string& str);

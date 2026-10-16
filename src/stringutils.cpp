@@ -40,88 +40,22 @@ std::string StringUtils::trim(const std::string& str) {
   return str.substr(start, range);
 }
 
-// std::optional<std::string> StringUtils::system(std::optional<std::string> cmd) {
-// 
-//   if (!cmd) {
-//     return std::nullopt;
-//   }
-//   
-//   FILE *pipe = popen(cmd->c_str(), "r");
-//   if (!pipe) {
-//     BOOST_LOG_TRIVIAL(error) << "Failed to run command " << *cmd;
-//     return std::nullopt;
-//   }
-// 
-//   char buffer[128];
-//   std::ostringstream output;
-//   while (fgets(buffer, sizeof(buffer), pipe) != nullptr) {
-//     output << buffer;
-//   }
-//   pclose(pipe);
-//   
-//   return output.str();
-// 
-// }
-// 
-// std::string StringUtils::stitchBash(const std::vector<std::string> &lines) {
-// 
-//   std::string cmd;
-//   int n = 0;
-//   for (auto l: lines) {
-//     if (!cmd.empty()) {
-//       cmd += "\n";
-//     }
-//     cmd += "echo line " + std::to_string(n) + ":;" + l + " || exit 1;";
-//     n++;
-//   }
-//   
-//   return cmd;
-//   
-// }
-// 
-// void StringUtils::systemRun(std::optional<std::string> cmd, std::ostream& outfile, bool output) {
-// 
-//   if (!cmd) {
-//     return;
-//   }
-//   
-//   outfile << "$ " << *cmd << std::endl;
-// 
-//   FILE *pipe = popen(cmd->c_str(), "r");
-//   if (!pipe) {
-//     BOOST_LOG_TRIVIAL(error) << "Failed to run command " << *cmd;
-//     return;
-//   }
-//   
-//   char buffer[128];
-//   while (fgets(buffer, sizeof(buffer), pipe) != nullptr) {
-//     if (output) {
-//       std::cout << buffer << std::flush;
-//     }
-//     else {
-//       L_DEBUG(buffer);
-//     }
-//     outfile << buffer;
-//   }
-//   outfile << std::endl;
-//   pclose(pipe);
-// 
-// }
-// 
-// std::string StringUtils::expandTilde(const std::string &path) {
-// 
-//   if (!path.empty() && path[0] == '~') {
-//     std::string p = path;
-//     const char* home = getenv("HOME");
-//     if (home) {
-//       p.replace(0, 1, home);
-//     }
-//     return p;
-//   }
-//   
-//   return path;
-//   
-// }
+void StringUtils::splitString(const std::string &s, char token, std::vector<std::string> *parts) {
+
+  if (!parts) {
+    return;
+  }
+
+  std::string::size_type start = 0;
+  std::string::size_type end;
+
+  while ((end = s.find(token, start)) != std::string::npos) {
+      parts->push_back(s.substr(start, end - start));
+      start = end + 1;
+  }
+  parts->push_back(s.substr(start));
+  
+}
 
 void StringUtils::splitString(const std::string &s, char token, std::string *s1, std::string *s2) {
 
