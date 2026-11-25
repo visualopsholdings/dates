@@ -47,15 +47,15 @@ add_library(DatesLib STATIC
   src/stringutils.cpp 
   src/log.cpp)
 #target_link_libraries(DatesLib ${BOOSTLIBS})
-target_link_libraries(DatesLib PRIVATE Boost::log Boost::log_setup)
-#target_compile_definitions(DatesLib PRIVATE BOOST_LOG_DYN_LINK)
+target_link_libraries(DatesLib Boost::log Boost::log_setup)
+target_compile_definitions(DatesLib BOOST_LOG_DYN_LINK)
 
 # Tests
 
 add_executable(TestDate test/testdate.cpp)
 #  target_link_libraries(TestDate DatesLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
-  target_link_libraries(TestDate PRIVATE DatesLib Boost::unit_test_framework Boost::log Boost::log_setup)
-#  target_compile_definitions(TestDate PRIVATE BOOST_LOG_DYN_LINK)
+  target_link_libraries(TestDate DatesLib Boost::unit_test_framework Boost::log Boost::log_setup)
+  target_compile_definitions(TestDate BOOST_LOG_DYN_LINK)
   
 get_target_property(libs TestDate LINK_LIBRARIES)
 message(STATUS "TestDate LINK_LIBRARIES: ${libs}")
