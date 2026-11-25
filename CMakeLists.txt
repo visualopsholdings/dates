@@ -39,7 +39,6 @@ include_directories(include)
 
 set(BOOSTLIBS 
   ${Boost_LOG_LIBRARY}
-  ${Boost_LOG_SETUP_LIBRARY}
   ${Boost_THREAD_LIBRARY})
 
 add_library(DatesLib STATIC
