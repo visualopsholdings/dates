@@ -32,7 +32,8 @@ include_directories(include)
 
 get_target_property(iface Boost::log INTERFACE_LINK_LIBRARIES)
 message(STATUS "Boost::log INTERFACE_LINK_LIBRARIES: ${iface}")
-
+get_target_property(loc Boost::log IMPORTED_LOCATION_RELEASE)
+message(STATUS "Boost::log file: ${loc}")
 get_target_property(defs Boost::log INTERFACE_COMPILE_DEFINITIONS)
 message(STATUS "Boost::log defs: ${defs}")
 
