@@ -17,7 +17,7 @@ set(USE_MONGO ON)
 
 project (dates)
   find_package(Boost 1.90.0 COMPONENTS unit_test_framework chrono thread log_setup log REQUIRED)
-  add_definitions(-DBOOST_ALL_DYN_LINK) 
+#  add_definitions(-DBOOST_ALL_DYN_LINK) 
   enable_testing()
   
 set(CMAKE_BUILD_TYPE Release)
@@ -41,21 +41,21 @@ add_library(DatesLib STATIC
   src/log.cpp)
 #target_link_libraries(DatesLib ${BOOSTLIBS})
 target_link_libraries(DatesLib PRIVATE Boost::log Boost::log_setup)
-target_compile_definitions(DatesLib PRIVATE BOOST_LOG_DYN_LINK)
+#target_compile_definitions(DatesLib PRIVATE BOOST_LOG_DYN_LINK)
 
 # Tests
 
 add_executable(TestDate test/testdate.cpp)
 #  target_link_libraries(TestDate DatesLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
   target_link_libraries(TestDate PRIVATE DatesLib Boost::unit_test_framework Boost::log Boost::log_setup)
-  target_compile_definitions(TestDate PRIVATE BOOST_LOG_DYN_LINK)
+#  target_compile_definitions(TestDate PRIVATE BOOST_LOG_DYN_LINK)
   
 add_test(TestDate TestDate)
 
 add_executable(TestStringUtils test/teststringutils.cpp src/stringutils.cpp)
 #  target_link_libraries(TestStringUtils ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
   target_link_libraries(TestStringUtils PRIVATE DatesLib Boost::unit_test_framework Boost::log Boost::log_setup)
-  target_compile_definitions(TestStringUtils PRIVATE BOOST_LOG_DYN_LINK)
+#  target_compile_definitions(TestStringUtils PRIVATE BOOST_LOG_DYN_LINK)
 
 add_test(TestStringUtils TestStringUtils)
 
