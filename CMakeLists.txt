@@ -30,16 +30,18 @@ endif ()
 
 include_directories(include)
 
-set(BOOSTLIBS 
-  ${Boost_LOG_LIBRARY}
-  ${Boost_LOG_SETUP_LIBRARY}
-  ${Boost_THREAD_LIBRARY})
+# set(BOOSTLIBS 
+#   ${Boost_LOG_LIBRARY}
+#   ${Boost_LOG_SETUP_LIBRARY}
+#   ${Boost_THREAD_LIBRARY})
 
 add_library(DatesLib STATIC
   src/date.cpp 
   src/stringutils.cpp 
   src/log.cpp)
-target_link_libraries(DatesLib ${BOOSTLIBS})
+#target_link_libraries(DatesLib ${BOOSTLIBS})
+target_link_libraries(DatesLib PRIVATE Boost::log Boost::log_setup)
+target_compile_definitions(DatesLib PRIVATE BOOST_LOG_DYN_LINK)
 
 # Tests
 
