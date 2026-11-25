@@ -17,7 +17,7 @@ set(USE_MONGO ON)
 
 project (dates)
   find_package(Boost 1.90.0 COMPONENTS unit_test_framework chrono thread log_setup log REQUIRED)
-#  add_definitions(-DBOOST_ALL_DYN_LINK) 
+  add_definitions(-DBOOST_ALL_DYN_LINK) 
   enable_testing()
   
 set(CMAKE_BUILD_TYPE Release)
@@ -30,43 +30,44 @@ endif ()
 
 include_directories(include)
 
-get_target_property(iface Boost::log INTERFACE_LINK_LIBRARIES)
-message(STATUS "Boost::log INTERFACE_LINK_LIBRARIES: ${iface}")
-get_target_property(loc Boost::log IMPORTED_LOCATION_RELEASE)
-message(STATUS "Boost::log file: ${loc}")
-get_target_property(defs Boost::log INTERFACE_COMPILE_DEFINITIONS)
-message(STATUS "Boost::log defs: ${defs}")
+# get_target_property(iface Boost::log INTERFACE_LINK_LIBRARIES)
+# message(STATUS "Boost::log INTERFACE_LINK_LIBRARIES: ${iface}")
+# get_target_property(loc Boost::log IMPORTED_LOCATION_RELEASE)
+# message(STATUS "Boost::log file: ${loc}")
+# get_target_property(defs Boost::log INTERFACE_COMPILE_DEFINITIONS)
+# message(STATUS "Boost::log defs: ${defs}")
 
-# set(BOOSTLIBS 
-#   ${Boost_LOG_LIBRARY}
-#   ${Boost_LOG_SETUP_LIBRARY}
-#   ${Boost_THREAD_LIBRARY})
+set(BOOSTLIBS 
+  ${Boost_LOG_LIBRARY}
+  ${Boost_LOG_SETUP_LIBRARY}
+  ${Boost_THREAD_LIBRARY})
 
-# add_library(DatesLib STATIC
-#   src/date.cpp 
-#   src/stringutils.cpp 
-#   src/log.cpp)
-# #target_link_libraries(DatesLib ${BOOSTLIBS})
+add_library(DatesLib STATIC
+  src/date.cpp 
+  src/stringutils.cpp 
+  src/log.cpp)
+target_link_libraries(DatesLib ${BOOSTLIBS})
 # target_link_libraries(DatesLib Boost::log Boost::log_setup)
 # target_compile_definitions(DatesLib PRIVATE BOOST_LOG_DYN_LINK)
 
 # Tests
 
-add_executable(TestDate test/testdate.cpp src/date.cpp src/stringutils.cpp src/log.cpp)
-#  target_link_libraries(TestDate DatesLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
-#  target_link_libraries(TestDate DatesLib Boost::unit_test_framework Boost::log Boost::log_setup)
-  target_link_libraries(TestDate Boost::unit_test_framework Boost::log_setup Boost::log)
-  target_compile_definitions(TestDate PRIVATE BOOST_LOG_DYN_LINK)
+#add_executable(TestDate test/testdate.cpp src/date.cpp src/stringutils.cpp src/log.cpp)
+add_executable(TestDate test/testdate.cpp)
+ target_link_libraries(TestDate DatesLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+# #  target_link_libraries(TestDate DatesLib Boost::unit_test_framework Boost::log Boost::log_setup)
+#   target_link_libraries(TestDate Boost::unit_test_framework Boost::log_setup Boost::log)
+# #  target_compile_definitions(TestDate PRIVATE BOOST_LOG_DYN_LINK)
   
-get_target_property(libs TestDate LINK_LIBRARIES)
-message(STATUS "TestDate LINK_LIBRARIES: ${libs}")
+# get_target_property(libs TestDate LINK_LIBRARIES)
+# message(STATUS "TestDate LINK_LIBRARIES: ${libs}")
 
 add_test(TestDate TestDate)
 
-# add_executable(TestStringUtils test/teststringutils.cpp src/stringutils.cpp)
-# #  target_link_libraries(TestStringUtils ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+add_executable(TestStringUtils test/teststringutils.cpp src/stringutils.cpp)
+  target_link_libraries(TestStringUtils ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 #   target_link_libraries(TestStringUtils PRIVATE DatesLib Boost::unit_test_framework Boost::log Boost::log_setup)
 # #  target_compile_definitions(TestStringUtils PRIVATE BOOST_LOG_DYN_LINK)
-# 
-# add_test(TestStringUtils TestStringUtils)
-# 
+
+add_test(TestStringUtils TestStringUtils)
+
