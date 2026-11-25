@@ -55,7 +55,7 @@ message(STATUS "Boost::log defs: ${defs}")
 add_executable(TestDate test/testdate.cpp src/date.cpp src/stringutils.cpp src/log.cpp)
 #  target_link_libraries(TestDate DatesLib ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
 #  target_link_libraries(TestDate DatesLib Boost::unit_test_framework Boost::log Boost::log_setup)
-  target_link_libraries(TestDate Boost::unit_test_framework Boost::log Boost::log_setup)
+  target_link_libraries(TestDate Boost::unit_test_framework Boost::log_setup Boost::log)
   target_compile_definitions(TestDate PRIVATE BOOST_LOG_DYN_LINK)
   
 get_target_property(libs TestDate LINK_LIBRARIES)
