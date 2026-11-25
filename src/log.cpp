@@ -13,6 +13,7 @@
 
 #ifdef HAS_BOOST_LOGGING
 
+#define BOOST_LOG_DYN_LINK 1
 #include <boost/log/expressions.hpp>
 #include <boost/log/support/date_time.hpp>
 #include <boost/log/utility/setup/console.hpp>
