@@ -56,6 +56,9 @@ add_executable(TestDate test/testdate.cpp)
   target_link_libraries(TestDate PRIVATE DatesLib Boost::unit_test_framework Boost::log Boost::log_setup)
 #  target_compile_definitions(TestDate PRIVATE BOOST_LOG_DYN_LINK)
   
+get_target_property(libs TestDate LINK_LIBRARIES)
+message(STATUS "TestDate LINK_LIBRARIES: ${libs}")
+
 add_test(TestDate TestDate)
 
 add_executable(TestStringUtils test/teststringutils.cpp src/stringutils.cpp)
