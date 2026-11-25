@@ -51,7 +51,9 @@ add_executable(TestDate test/testdate.cpp)
 add_test(TestDate TestDate)
 
 add_executable(TestStringUtils test/teststringutils.cpp src/stringutils.cpp)
-  target_link_libraries(TestStringUtils ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+#  target_link_libraries(TestStringUtils ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${BOOSTLIBS})
+  target_link_libraries(TestStringUtils PRIVATE DatesLib Boost::unit_test_framework Boost::log Boost::log_setup)
+  target_compile_definitions(TestStringUtils PRIVATE BOOST_LOG_DYN_LINK)
 
 add_test(TestStringUtils TestStringUtils)
 
